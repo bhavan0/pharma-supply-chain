@@ -1,0 +1,49 @@
+<div #dialogContent class="ui-dynamic-dialog-body">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="UserAddress">User address</label>
+            </div>
+            <div class="form-input-div">
+                <input id="UserAddress" [(ngModel)]="newAddress" type="text" size="30" pInputText required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="UserName">User name</label>
+            </div>
+            <div class="form-input-div">
+                <input id="UserName" [(ngModel)]="name" type="text" size="30" pInputText required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="UserRole">User role</label>
+            </div>
+            <div class="form-input-div">
+                <p-dropdown [options]="roles" [(ngModel)]="role" optionLabel="name" placeholder="Select Role" required>
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="InitialAmount">Initial Amount</label>
+            </div>
+            <div class="form-input-div">
+                <input id="InitialAmount" [(ngModel)]="initialAmount" type="number" size="100" pInputText required>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="ui-dynamic-dialog-footer">
+    <div class="text-right">
+        <button pButton [disabled]="disableSave()" label="Save" class="m-r-12" (click)="addUser()"></button>
+        <button pButton label="Cancel" class="ui-button-tertiary" (click)="closeDialogBox()"></button>
+    </div>
+</div>

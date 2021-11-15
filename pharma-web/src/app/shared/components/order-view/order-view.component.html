@@ -1,0 +1,66 @@
+<div #dialogContent class="ui-dynamic-dialog-body">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="OrderId">Id</label>
+            </div>
+            <div class="form-input-div">
+                <label class="form-label" for="OrderId">{{order.orderId}}</label>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="displayAddress===1">
+            <div class="form-label-div">
+                <label class="form-label" for="RetailerId">Retailer Address</label>
+            </div>
+            <div class="form-input-div">
+                <label class="form-label" for="RetailerId">{{order.retailerAddress}}</label>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="displayAddress===2">
+            <div class="form-label-div">
+                <label class="form-label" for="DistributorId">Distributor Address</label>
+            </div>
+            <div class="form-input-div">
+                <label class="form-label" for="DistributorId">{{order.distributorAddress}}</label>
+            </div>
+        </div>
+
+        <div class="form-group" *ngIf="displayAddress==3">
+            <div class="form-label-div">
+                <label class="form-label" for="CustomerId">Customer Address</label>
+            </div>
+            <div class="form-input-div">
+                <label class="form-label" for="CustomerId">{{order.customerAddress}}</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="Quantity">Quantity</label>
+            </div>
+            <div class="form-input-div">
+                <label class="form-label" for="Quantity">{{order.quantity}}</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="Amount">Amount</label>
+            </div>
+            <div class="form-input-div">
+                <label class="form-label" for="Amount">{{order.amount}}</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ui-dynamic-dialog-footer">
+    <div class="text-right">
+        <button *ngIf="!displayConfirm && !order.confirmed" pButton label="Confirm" class="m-r-12"
+            (click)="confirmOrder()"></button>
+        <button pButton label="Close" class="ui-button-tertiary" (click)="closeDialogBox()"></button>
+    </div>
+</div>

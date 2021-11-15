@@ -1,0 +1,62 @@
+<div #dialogContent class="ui-dynamic-dialog-body">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="Retailers">Retailer</label>
+            </div>
+            <div class="form-input-div">
+                <p-dropdown id="Retailers" [options]="retailers" [(ngModel)]="selectedRetailer"
+                    optionLabel="name" placeholder="Select Retailer" (onChange)="getRetailerMedicines()" required>
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="Medicine">Medicine</label>
+            </div>
+            <div class="form-input-div">
+                <p-dropdown id="Medicine" [options]="medicines" [(ngModel)]="selectedMedicine" optionLabel="name"
+                    placeholder="Select Medicine" (onChange)="getMedicineInfo()" required>
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="OrderId">Order Id</label>
+            </div>
+            <div class="form-input-div">
+                <input id="OrderId" [(ngModel)]="orderId" type="number" size="40" pInputText required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="Quantity">Quantity</label>
+            </div>
+            <div class="form-input-div">
+                <p-inputNumber [(ngModel)]="selectedQuantity" mode="decimal" [min]="0" [max]="maxQuantity">
+                </p-inputNumber>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="Amount">Amount</label>
+            </div>
+            <div class="form-input-div">
+                <label class="form-label" for="Role">{{finalAmount}}</label>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="ui-dynamic-dialog-footer">
+    <div class="text-right">
+        <button pButton [disabled]="disableSave()" label="Place Order" class="m-r-12" (click)="placeOrder()"></button>
+        <button pButton label="Cancel" class="ui-button-tertiary" (click)="closeDialogBox()"></button>
+    </div>
+</div>

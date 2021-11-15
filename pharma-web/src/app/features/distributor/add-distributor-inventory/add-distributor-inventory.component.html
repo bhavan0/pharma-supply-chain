@@ -1,0 +1,48 @@
+<div #dialogContent class="ui-dynamic-dialog-body">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="MedicineId">Id</label>
+            </div>
+            <div class="form-input-div">
+                <input id="MedicineId" [(ngModel)]="medicine.medicineId" type="number" size="30" pInputText required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="MedicineName">Name</label>
+            </div>
+            <div class="form-input-div">
+                <input id="MedicineName" [(ngModel)]="medicine.name" type="text" size="100" pInputText required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="MedicineQuantity">Quantity</label>
+            </div>
+            <div class="form-input-div">
+                <input id="MedicineQuantity" [(ngModel)]="medicine.quantity" type="number" size="30" pInputText required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="form-label-div">
+                <label class="form-label" for="MedicinePrice">Price</label>
+            </div>
+            <div class="form-input-div">
+                <input id="MedicinePrice" [(ngModel)]="medicine.price" type="number" size="30" pInputText required>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="ui-dynamic-dialog-footer">
+    <div class="text-right">
+        <button pButton [disabled]="disableSave()" label="Save" class="m-r-12" (click)="addInventory()"></button>
+        <button pButton label="Cancel" class="ui-button-tertiary" (click)="closeDialogBox()"></button>
+    </div>
+</div>
