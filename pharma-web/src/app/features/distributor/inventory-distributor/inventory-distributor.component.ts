@@ -4,7 +4,7 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { DialogService } from 'primeng';
 import { AddDistributorInventoryComponent } from '../add-distributor-inventory/add-distributor-inventory.component';
-import { InventoryViewComponent } from '../inventory-view/inventory-view.component';
+import { InventoryViewComponent } from 'src/app/shared/components/inventory-view/inventory-view.component';
 
 @Component({
   selector: 'app-inventory-distributor',
@@ -21,7 +21,8 @@ export class InventoryDistributorComponent implements OnInit {
   searchText = '';
   selectedMedicine: any = null;
 
-  constructor(private dataService: DataService,
+  constructor(
+    private dataService: DataService,
     private accountService: AccountService,
     private dialogService: DialogService) { }
 
@@ -57,7 +58,7 @@ export class InventoryDistributorComponent implements OnInit {
     this.inventoryViewRef = this.dialogService.open(InventoryViewComponent, {
       header: 'Inventory',
       width: '680px',
-      data: { medicine: medicine, isRetailer: false }
+      data: { medicine, isRetailer: false }
     });
 
     this.inventoryViewRef.onClose.subscribe(() => {

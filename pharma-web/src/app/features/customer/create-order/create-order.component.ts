@@ -42,7 +42,7 @@ export class CreateOrderComponent implements OnInit {
   async getRetailerMedicines() {
     this.dataService.getAllUsersMedicines(this.selectedRetailer.address).subscribe(data => {
       this.medicines = data.medicines;
-    })
+    });
   }
 
   async getMedicineInfo() {
@@ -52,7 +52,8 @@ export class CreateOrderComponent implements OnInit {
   }
 
   async placeOrder() {
-    await this.contractService.createCustomerOrder(this.selectedRetailer.address, this.selectedMedicine.id, this.orderId, this.selectedQuantity);
+    await this.contractService.createCustomerOrder(this.selectedRetailer.address, this.selectedMedicine.id,
+      this.orderId, this.selectedQuantity);
     const account = await this.accountService.connectAndGetAccount();
     this.dataService.addCustomerOrder(account, this.selectedRetailer.address, this.orderId).subscribe(() => {
       this.closeDialogBox(true);
@@ -64,7 +65,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   disableSave() {
-    return !this.selectedRetailer || !this.selectedMedicine || this.maxQuantity == 0 || !this.orderId;
+    return !this.selectedRetailer || !this.selectedMedicine || this.maxQuantity === 0 || !this.orderId;
   }
 
   get finalAmount(): number {

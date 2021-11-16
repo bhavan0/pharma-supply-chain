@@ -19,7 +19,7 @@ export class RetailerPlacedOrdersComponent implements OnInit {
   orders: Order[] = [];
   orderViewRef: any;
   createOrderViewRef: any;
-  selectedOrder: any = null
+  selectedOrder: any = null;
 
   constructor(
     private dataService: DataService,
@@ -50,7 +50,7 @@ export class RetailerPlacedOrdersComponent implements OnInit {
     this.orderViewRef = this.dialogService.open(OrderViewComponent, {
       header: 'Order',
       width: '680px',
-      data: { order: order, displayConfirm: false, displayAddress: 2 }
+      data: { order, displayConfirm: false, displayAddress: 2 }
     });
 
     this.orderViewRef.onClose.subscribe(() => {

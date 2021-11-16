@@ -35,7 +35,7 @@ export class OrderViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.displayAddress == 1) {
+    if (this.displayAddress === 1) {
       this.getOrderInfo();
     } else if (this.displayAddress === 2) {
       this.getRetailerPlacedOrderInfo();

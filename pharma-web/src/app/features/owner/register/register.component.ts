@@ -40,7 +40,8 @@ export class RegisterComponent implements OnInit {
       address: this.newAddress,
       name: this.name,
       role: this.role.code
-    }
+    };
+
     this.dataService.addUser(userModel).subscribe(() => {
       this.closeDialogBox(true);
     });

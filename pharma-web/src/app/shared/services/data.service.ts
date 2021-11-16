@@ -1,11 +1,11 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { AllUsersResponse } from "../models/all-user-response.model";
-import { MedicineBase } from "../models/medicine.model";
-import { OrdersResponse } from "../models/orders-response.model";
-import { UserMedicineReposne } from "../models/user-medicine-response.model";
-import { UserModel } from "../models/user.model";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AllUsersResponse } from '../models/all-user-response.model';
+import { MedicineBase } from '../models/medicine.model';
+import { OrdersResponse } from '../models/orders-response.model';
+import { UserMedicineReposne } from '../models/user-medicine-response.model';
+import { UserModel } from '../models/user.model';
 
 @Injectable({
     providedIn: 'root'
@@ -55,13 +55,14 @@ export class DataService {
             'medicineId': medicine.id,
             'name': medicine.name,
             'address': medicine.address
-        }
-        return this.postData<MedicineBase>(url, med)
+        };
+
+        return this.postData<MedicineBase>(url, med);
     }
 
     updateMedicineByDistributor(medicine: MedicineBase): Observable<MedicineBase> {
         const url = 'update-medicine';
-        return this.postData<MedicineBase>(url, medicine)
+        return this.postData<MedicineBase>(url, medicine);
     }
 
     getDistributorOrders(address: string): Observable<OrdersResponse> {

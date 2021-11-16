@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService } from 'primeng';
+import { InventoryViewComponent } from 'src/app/shared/components/inventory-view/inventory-view.component';
 import { Medicine } from 'src/app/shared/models/medicine.model';
 import { AccountService } from 'src/app/shared/services/account.service';
 import { DataService } from 'src/app/shared/services/data.service';
-import { InventoryViewComponent } from '../../distributor/inventory-view/inventory-view.component';
 
 @Component({
   selector: 'app-all-inventory',
@@ -20,7 +20,8 @@ export class AllInventoryComponent implements OnInit {
   searchText = '';
   selectedMedicine: any = null;
 
-  constructor(private dataService: DataService,
+  constructor(
+    private dataService: DataService,
     private accountService: AccountService,
     private dialogService: DialogService) { }
 
@@ -43,7 +44,7 @@ export class AllInventoryComponent implements OnInit {
     this.inventoryViewRef = this.dialogService.open(InventoryViewComponent, {
       header: 'Inventory',
       width: '680px',
-      data: { medicine: medicine, isRetailer: true }
+      data: { medicine, isRetailer: true }
     });
 
     this.inventoryViewRef.onClose.subscribe(() => {

@@ -45,7 +45,7 @@ export class RetailersOrderComponent implements OnInit {
     this.orderViewRef = this.dialogService.open(OrderViewComponent, {
       header: 'Order',
       width: '680px',
-      data: { order: order, displayConfirm: false, displayAddress: 3 }
+      data: { order, displayConfirm: false, displayAddress: 3 }
     });
 
     this.orderViewRef.onClose.subscribe((value: boolean) => {

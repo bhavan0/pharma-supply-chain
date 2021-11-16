@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
   userDetailsRef: any;
   users: UserModel[] = [];
   cols: any;
-  searchText: string = '';
+  searchText = '';
   selectedUser: any = null;
 
   constructor(
@@ -29,7 +29,7 @@ export class UserListComponent implements OnInit {
       { field: 'address', header: 'Address' },
       { field: 'name', header: 'Name' },
       { field: 'role', header: 'Role' }
-    ]
+    ];
 
     this.getAllUsers();
   }
@@ -57,7 +57,7 @@ export class UserListComponent implements OnInit {
     this.userDetailsRef = this.dialogService.open(UserDetailsComponent, {
       header: 'User Details',
       width: '680px',
-      data: { user: user }
+      data: { user }
     });
 
     this.userDetailsRef.onClose.subscribe(() => {

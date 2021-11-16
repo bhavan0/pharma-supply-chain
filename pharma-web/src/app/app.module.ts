@@ -15,7 +15,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { UserDetailsComponent } from './features/owner/user-details/user-details.component';
 import { InventoryDistributorComponent } from './features/distributor/inventory-distributor/inventory-distributor.component';
 import { AddDistributorInventoryComponent } from './features/distributor/add-distributor-inventory/add-distributor-inventory.component';
-import { InventoryViewComponent } from './features/distributor/inventory-view/inventory-view.component';
+import { InventoryViewComponent } from './shared/components/inventory-view/inventory-view.component';
 import { OrderListComponent } from './features/distributor/order-list/order-list.component';
 import { OrderViewComponent } from './shared/components/order-view/order-view.component';
 import { RetailerPlacedOrdersComponent } from './features/retailer/retailer-placed-orders/retailer-placed-orders.component';

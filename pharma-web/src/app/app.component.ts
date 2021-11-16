@@ -9,7 +9,7 @@ import { AccountService } from './shared/services/account.service';
 export class AppComponent implements OnInit {
   title = 'pharma-web';
 
-  account: string = '';
+  account = '';
 
   constructor(
     private accountService: AccountService) {

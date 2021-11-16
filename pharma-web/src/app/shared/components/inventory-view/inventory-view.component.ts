@@ -57,21 +57,22 @@ export class InventoryViewComponent implements OnInit {
 
   disableSave() {
     return this.isRetailer
-      ? !(this.oldPrice != this.medicine.price)
-      : !(this.oldName != this.medicine.name || this.oldPrice != this.medicine.price || this.oldQuantity != this.medicine.quantity)
+      ? !(this.oldPrice !== this.medicine.price)
+      : !(this.oldName !== this.medicine.name || this.oldPrice !== this.medicine.price
+        || this.oldQuantity !== this.medicine.quantity);
   }
 
   async editInventory() {
     if (this.isRetailer) {
-      if (this.oldPrice != this.medicine.price) {
+      if (this.oldPrice !== this.medicine.price) {
         await this.contractService.updatePriceOfInventoryByRetailer(this.medicine.id, this.medicine.price);
         this.closeDialogBox(true);
       }
     } else {
-      if (this.oldPrice != this.medicine.price || this.oldQuantity != this.medicine.quantity) {
+      if (this.oldPrice !== this.medicine.price || this.oldQuantity !== this.medicine.quantity) {
         await this.contractService.updateInventoryByDistibuter(this.medicine.id, this.medicine.quantity, this.medicine.price);
       }
-      if (this.oldName != this.medicine.name) {
+      if (this.oldName !== this.medicine.name) {
         const medicine: MedicineBase = {
           id: this.medicine.id,
           name: this.medicine.name,

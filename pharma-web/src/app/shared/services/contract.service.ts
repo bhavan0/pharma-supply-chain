@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Event_abi, Event_Address } from "../../../abis.js";
+import { eventAbi, eventAddress } from '../../../abis.js';
 import { AccountService } from './account.service.js';
 
 @Injectable({
@@ -15,14 +15,14 @@ export class ContractService {
 
     async getAccount() {
         this.account = await this.accountService.connectAndGetAccount();
-        this.pharmaContract = new window.web3.eth.Contract(Event_abi, Event_Address);
+        this.pharmaContract = new window.web3.eth.Contract(eventAbi, eventAddress);
     }
 
     async registerUser(newAccountId: string, initialAmount: number, accountType: string): Promise<any> {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.registerUser(newAccountId, +initialAmount * 10000, accountType).send({ from: this.account })
+                .methods.registerUser(newAccountId, +initialAmount * 10000, accountType).send({ from: this.account });
             resolve(res);
         });
     }
@@ -31,7 +31,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.balanceOf(address).call({ from: this.account })
+                .methods.balanceOf(address).call({ from: this.account });
             resolve(res);
         });
     }
@@ -40,7 +40,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.addInventoryByDistibuter(medicineId, quantity, price * 10000).send({ from: this.account })
+                .methods.addInventoryByDistibuter(medicineId, quantity, price * 10000).send({ from: this.account });
             resolve(res);
         });
     }
@@ -49,7 +49,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.updateInventoryByDistibuter(medicineId, quantity, price * 10000).send({ from: this.account })
+                .methods.updateInventoryByDistibuter(medicineId, quantity, price * 10000).send({ from: this.account });
             resolve(res);
         });
     }
@@ -58,7 +58,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.getMedicineByIdOfDistributor(medicineId, distributorAddress ?? this.account).call({ from: this.account })
+                .methods.getMedicineByIdOfDistributor(medicineId, distributorAddress ?? this.account).call({ from: this.account });
             resolve(res);
         });
     }
@@ -67,7 +67,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.confirmOrderByDistributor(orderId).send({ from: this.account })
+                .methods.confirmOrderByDistributor(orderId).send({ from: this.account });
             resolve(res);
         });
     }
@@ -76,7 +76,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.getOrderInfoByIdOfDistributor(orderId, distributorAddress ?? this.account).call({ from: this.account })
+                .methods.getOrderInfoByIdOfDistributor(orderId, distributorAddress ?? this.account).call({ from: this.account });
             resolve(res);
         });
     }
@@ -85,7 +85,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.getOrderInfoByIdOfRetailer(orderId, retailerAddress ?? this.account).call({ from: this.account })
+                .methods.getOrderInfoByIdOfRetailer(orderId, retailerAddress ?? this.account).call({ from: this.account });
             resolve(res);
         });
     }
@@ -94,7 +94,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.createRetailerOrder(distributorAddress, medicineId, orderNo, quantity).send({ from: this.account })
+                .methods.createRetailerOrder(distributorAddress, medicineId, orderNo, quantity).send({ from: this.account });
             resolve(res);
         });
     }
@@ -103,7 +103,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.createCustomerOrder(retailerAddress, medicineId, orderNo, quantity).send({ from: this.account })
+                .methods.createCustomerOrder(retailerAddress, medicineId, orderNo, quantity).send({ from: this.account });
             resolve(res);
         });
     }
@@ -112,7 +112,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.getMedicineByIdOfRetailer(medicineId, retailerAddress ?? this.account).call({ from: this.account })
+                .methods.getMedicineByIdOfRetailer(medicineId, retailerAddress ?? this.account).call({ from: this.account });
             resolve(res);
         });
     }
@@ -121,7 +121,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.updatePriceOfInventoryByRetailer(medicineId, price * 10000).send({ from: this.account })
+                .methods.updatePriceOfInventoryByRetailer(medicineId, price * 10000).send({ from: this.account });
             resolve(res);
         });
     }

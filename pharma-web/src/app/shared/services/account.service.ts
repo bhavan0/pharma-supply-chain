@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import Web3 from "web3";
-import Web3Modal from "web3modal";
+import Web3 from 'web3';
+import Web3Modal from 'web3modal';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +19,7 @@ export class AccountService {
 
     async checkAccountChange() {
         window.ethereum.on('accountsChanged', () => {
-            this.router.navigateByUrl('').then(() =>{
+            this.router.navigateByUrl('').then(() => {
                 window.location.reload();
             });
         });
