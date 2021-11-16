@@ -23,13 +23,13 @@ export class AddDistributorInventoryComponent implements OnInit {
   }
 
   disableSave(): boolean {
-    return this.medicine.medicineId === null || this.medicine.name === null || this.medicine?.price === 0 || this.medicine?.quantity === 0;
+    return this.medicine.id === null || this.medicine.name === null || this.medicine?.price === 0 || this.medicine?.quantity === 0;
   }
 
   async addInventory() {
-    await this.contractService.addInventoryByDistibuter(this.medicine.medicineId, this.medicine.quantity, this.medicine.price);
+    await this.contractService.addInventoryByDistibuter(this.medicine.id, this.medicine.quantity, this.medicine.price);
     const medicine: MedicineBase = {
-      medicineId: this.medicine.medicineId,
+      id: this.medicine.id,
       name: this.medicine.name,
       address: this.contractService.account
     };

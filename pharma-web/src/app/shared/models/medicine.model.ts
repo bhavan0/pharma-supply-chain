@@ -1,5 +1,5 @@
 export class MedicineBase {
-    medicineId!: number;
+    id!: number;
     name!: string;
     address!: string;
 }

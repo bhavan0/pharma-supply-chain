@@ -22,7 +22,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.registerUser(newAccountId, +initialAmount, accountType).send({ from: this.account })
+                .methods.registerUser(newAccountId, +initialAmount * 10000, accountType).send({ from: this.account })
             resolve(res);
         });
     }
@@ -40,7 +40,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.addInventoryByDistibuter(medicineId, quantity, price).send({ from: this.account })
+                .methods.addInventoryByDistibuter(medicineId, quantity, price * 10000).send({ from: this.account })
             resolve(res);
         });
     }
@@ -49,7 +49,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.updateInventoryByDistibuter(medicineId, quantity, price).send({ from: this.account })
+                .methods.updateInventoryByDistibuter(medicineId, quantity, price * 1000).send({ from: this.account })
             resolve(res);
         });
     }
@@ -104,6 +104,15 @@ export class ContractService {
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
                 .methods.createCustomerOrder(retailerAddress, medicineId, orderNo, quantity).send({ from: this.account })
+            resolve(res);
+        });
+    }
+
+    async getMedicineByIdOfRetailer(medicineId: number, retailerAddress?: string): Promise<any> {
+        await this.getAccount();
+        return new Promise(async (resolve) => {
+            const res = await this.pharmaContract
+                .methods.getMedicineByIdOfRetailer(medicineId, retailerAddress ?? this.account).call({ from: this.account })
             resolve(res);
         });
     }

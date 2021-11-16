@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit {
         styleClass: (this.activeRoute === 3) ? 'ui-state-active' : ''
       },
       {
-        label: 'Retailer placed orders',
+        label: 'Retailers orders',
         icon: 'ei ei-bus',
         routerLink: './retailers-orders',
         routerLinkActiveOptions: {},

@@ -49,7 +49,7 @@ export class RetailerPlacedOrdersComponent implements OnInit {
     this.orderViewRef = this.dialogService.open(OrderViewComponent, {
       header: 'Order',
       width: '680px',
-      data: { order: order, displayConfirm: true, displayAddress: 2 }
+      data: { order: order, displayConfirm: false, displayAddress: 2 }
     });
   }
 

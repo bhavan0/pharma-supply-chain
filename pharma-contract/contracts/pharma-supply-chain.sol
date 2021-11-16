@@ -123,6 +123,7 @@ contract PharmaContract is ERC20 {
         
         inventoryOfDistributors[msg.sender].medicines[medicineId].quantity -= quantity;
         inventoryOfRetailers[distributorOrders[msg.sender].order[orderNo].retailer].medicines[medicineId].quantity += quantity;
+        inventoryOfRetailers[distributorOrders[msg.sender].order[orderNo].retailer].medicines[medicineId].price = inventoryOfDistributors[msg.sender].medicines[medicineId].price;
         
         transferFrom(distributorOrders[msg.sender].order[orderNo].retailer, msg.sender, distributorOrders[msg.sender].order[orderNo].amount);
     }
@@ -145,7 +146,7 @@ contract PharmaContract is ERC20 {
     // Customer creates order for the specific Retailer
     function createCustomerOrder(address retailerAddress, uint medicineId, uint orderNo, uint quantity) public virtual {
         uint amount = quantity * inventoryOfRetailers[retailerAddress].medicines[medicineId].price;
-        transfer(msg.sender, amount);
+        transfer(retailerAddress, amount);
         retailerOrders[retailerAddress].order[orderNo].medicineId = medicineId;
         retailerOrders[retailerAddress].order[orderNo].quantity = quantity;
         retailerOrders[retailerAddress].order[orderNo].customer = msg.sender;
@@ -154,7 +155,12 @@ contract PharmaContract is ERC20 {
     }
 
     // Returns the Order Quantity and price by ID of specified Retailer address
-    function getOrderInfoByIdOfRetailer(uint orderNo, address retailerAddress) public virtual returns(uint quantity, uint price) {
-        return (retailerOrders[retailerAddress].order[orderNo].quantity, retailerOrders[retailerAddress].order[orderNo].amount);
+    function getOrderInfoByIdOfRetailer(uint orderNo, address retailerAddress) public virtual returns(uint quantity, uint price, uint medicineId) {
+        return (retailerOrders[retailerAddress].order[orderNo].quantity, retailerOrders[retailerAddress].order[orderNo].amount, retailerOrders[retailerAddress].order[orderNo].medicineId);
+    }
+
+    // Returns the Medicine Info by ID of specified Distributor address
+    function getMedicineByIdOfRetailer(uint medicineId, address retailerAddress) public virtual returns(uint quantity, uint price){
+        return (inventoryOfRetailers[retailerAddress].medicines[medicineId].quantity, inventoryOfRetailers[retailerAddress].medicines[medicineId].price);
     }
 }

@@ -10,7 +10,7 @@
             </div>
         </div>
 
-        <div class="form-group" *ngIf="displayAddress===1">
+        <div class="form-group" *ngIf="displayAddress===1 || displayAddress===4">
             <div class="form-label-div">
                 <label class="form-label" for="RetailerId">Retailer Address</label>
             </div>
@@ -59,7 +59,7 @@
 
 <div class="ui-dynamic-dialog-footer">
     <div class="text-right">
-        <button *ngIf="!displayConfirm && !order.confirmed" pButton label="Confirm" class="m-r-12"
+        <button *ngIf="displayConfirm && !order.confirmed" pButton label="Confirm" class="m-r-12"
             (click)="confirmOrder()"></button>
         <button pButton label="Close" class="ui-button-tertiary" (click)="closeDialogBox()"></button>
     </div>

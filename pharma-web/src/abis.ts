@@ -1,4 +1,4 @@
-export const Event_Address = '0x6078C8aBc017f5F01bb15072D506aD0Ad92B44f3';
+export const Event_Address = '0x2793B5AdF84A9b84024A7d1aB2297B9B446F43C6';
 
 export const Event_abi = [
   {
@@ -506,6 +506,40 @@ export const Event_abi = [
       }
     ],
     "name": "getOrderInfoByIdOfRetailer",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "quantity",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "medicineId",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "medicineId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "retailerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getMedicineByIdOfRetailer",
     "outputs": [
       {
         "internalType": "uint256",

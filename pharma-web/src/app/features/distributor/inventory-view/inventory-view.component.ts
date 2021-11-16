@@ -33,7 +33,7 @@ export class InventoryViewComponent implements OnInit {
   }
 
   async getMedicineInfo() {
-    const blockMedicine = await this.contractService.getMedicineByIdOfDistributor(this.medicine.medicineId);
+    const blockMedicine = await this.contractService.getMedicineByIdOfDistributor(this.medicine.id);
     this.medicine.quantity = blockMedicine.quantity;
     this.medicine.price = blockMedicine.price;
     this.oldQuantity = blockMedicine.quantity;
@@ -47,11 +47,11 @@ export class InventoryViewComponent implements OnInit {
   async editInventory() {
 
     if (this.oldPrice != this.medicine.price || this.oldQuantity != this.medicine.quantity) {
-      await this.contractService.updateInventoryByDistibuter(this.medicine.medicineId, this.medicine.quantity, this.medicine.price);
+      await this.contractService.updateInventoryByDistibuter(this.medicine.id, this.medicine.quantity, this.medicine.price);
     }
     if (this.oldName != this.medicine.name) {
       const medicine: MedicineBase = {
-        medicineId: this.medicine.medicineId,
+        id: this.medicine.id,
         name: this.medicine.name,
         address: this.contractService.account
       };

@@ -8,7 +8,8 @@ import { DataService } from 'src/app/shared/services/data.service';
 @Component({
   selector: 'app-retailers-order',
   templateUrl: './retailers-order.component.html',
-  styleUrls: ['./retailers-order.component.scss']
+  styleUrls: ['./retailers-order.component.scss'],
+  providers: [DialogService]
 })
 export class RetailersOrderComponent implements OnInit {
 
@@ -26,8 +27,7 @@ export class RetailersOrderComponent implements OnInit {
   ngOnInit(): void {
     this.cols = [
       { field: 'orderId', header: 'Order ID' },
-      { field: 'retailerAddress', header: 'By' },
-      { field: 'confirmed', header: 'Status' }
+      { field: 'customerAddress', header: 'By' }
     ];
 
     this.getOrdersOfRetailer();

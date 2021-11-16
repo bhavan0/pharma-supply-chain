@@ -43,7 +43,12 @@ export class DataService {
 
     addMedicineByDistributor(medicine: MedicineBase): Observable<MedicineBase> {
         const url = 'add-medicine';
-        return this.postData<MedicineBase>(url, medicine)
+        const med = {
+            'medicineId': medicine.id,
+            'name': medicine.name,
+            'address': medicine.address
+        }
+        return this.postData<MedicineBase>(url, med)
     }
 
     updateMedicineByDistributor(medicine: MedicineBase): Observable<MedicineBase> {
@@ -65,7 +70,7 @@ export class DataService {
             'distributorAddress': distributorAddress,
             'orderId': orderId,
             'retailerAddress': retailerAddress,
-            'medicineId': medicineId
+            'medicineId': +medicineId
         };
         return this.postData<any>(url, data);
     }
@@ -95,7 +100,7 @@ export class DataService {
     }
 
     getRetailerPlacedOrders(retailerAddress: string): Observable<OrdersResponse> {
-        const url = 'get-retailer-palced-orders';
+        const url = 'get-retailer-placed-orders';
         const data = {
             'address': retailerAddress
         };
@@ -122,13 +127,12 @@ export class DataService {
         return this.postData<OrdersResponse>(url, data);
     }
 
-    addCustomerOrder(customerAddress: string, retailerAddress: string, orderId: number, medicineId: number): Observable<any> {
+    addCustomerOrder(customerAddress: string, retailerAddress: string, orderId: number): Observable<any> {
         const url = 'add-customer-order';
         const data = {
-            'distributorAddress': customerAddress,
+            'customerAddress': customerAddress,
             'orderId': orderId,
-            'retailerAddress': retailerAddress,
-            'medicineId': medicineId
+            'retailerAddress': retailerAddress
         };
         return this.postData<any>(url, data);
     }

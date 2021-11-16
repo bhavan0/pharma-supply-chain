@@ -10,6 +10,8 @@
                 <input class="ui-inputtext" type="text" pInputText size="50" placeholder="Search"
                     (input)="ordersTable.filterGlobal($event.target.value, 'contains')" [(ngModel)]="searchText" />
             </div>
+            <button class="ui-button" pButton (click)="createCustomerOrder()" type="button" icon="ei ei-plus"
+                iconPos="left" label="Create Order"></button>
         </div>
     </ng-template>
 

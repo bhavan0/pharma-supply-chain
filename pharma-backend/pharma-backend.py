@@ -151,7 +151,7 @@ class Pharma(Resource):
         collection_subscriptions = pharmaDB['users']
 
         allUsers = collection_subscriptions.find(
-            {"role": 0}, {'name': 1, 'address': 1, 'role': 1, '_id': 0})
+            {"role": "0"}, {'name': 1, 'address': 1, 'role': 1, '_id': 0})
         allUsersList = list(allUsers)
 
         return {'users': allUsersList}, 200
@@ -200,12 +200,7 @@ class Pharma(Resource):
 
         retailerMedicines = json.loads(json.dumps(retailerData['medicines']))
 
-        medR = []
-        if len(retailerMedicines) > 0:
-            medR = next(
-                x for x in retailerMedicines if x['id'] == medicineId)
-
-        if len(medR) == 0:
+        if not any(obj['id'] == medicineId for obj in retailerMedicines):
             retailerMedicines.append(med)
 
         collection_subscriptions.update_one({"_id": retailerData['_id']}, {
@@ -223,7 +218,7 @@ class Pharma(Resource):
         collection_subscriptions = pharmaDB['users']
 
         allUsers = collection_subscriptions.find(
-            {"role": 1}, {'name': 1, 'address': 1, 'role': 1, '_id': 0})
+            {"role": "1"}, {'name': 1, 'address': 1, 'role': 1, '_id': 0})
         allUsersList = list(allUsers)
 
         return {'users': allUsersList}, 200
@@ -261,7 +256,7 @@ class Pharma(Resource):
         retailerData = collection_subscriptions.find_one(
             {"address": retailerAddress})
 
-        orders = json.loads(json.dumps(retailerData['orders']))
+        orders = json.loads(json.dumps(retailerData['ordersPlaced']))
 
         orderR = {
             'orderId': orderId,
@@ -276,7 +271,7 @@ class Pharma(Resource):
 
         return {'Success': 'Order Added'}, 200
 
-    @app.route('/get-retailer-palced-orders', methods=['POST'])
+    @app.route('/get-retailer-placed-orders', methods=['POST'])
     def getRetailerPlacedOrders():
         userRequest = request.get_json()
         address = userRequest['address']
@@ -318,7 +313,10 @@ class Pharma(Resource):
 
         userData = collection_subscriptions.find_one({"address": address})
 
-        orders = json.loads(json.dumps(userData['ordersPlaced']))
+        orders = []
+
+        if len(userData) > 0:
+            orders = json.loads(json.dumps(userData['ordersPlaced']))
 
         return {'orders': orders}, 200
 

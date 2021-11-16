@@ -46,21 +46,21 @@ export class CreateOrderComponent implements OnInit {
   }
 
   async getMedicineInfo() {
-    const blockMedicine = await this.contractService.getOrderInfoByIdOfRetailer(this.selectedMedicine.medicineId, this.selectedRetailer.address);
+    const blockMedicine = await this.contractService.getMedicineByIdOfRetailer(this.selectedMedicine.id, this.selectedRetailer.address);
     this.maxQuantity = blockMedicine.quantity;
-    this.singleUnitPrice = blockMedicine.price;
+    this.singleUnitPrice = blockMedicine.price / 10000;
   }
 
   async placeOrder() {
-    await this.contractService.createCustomerOrder(this.selectedRetailer.address, this.selectedMedicine.medicineId, this.orderId, this.selectedQuantity);
+    await this.contractService.createCustomerOrder(this.selectedRetailer.address, this.selectedMedicine.id, this.orderId, this.selectedQuantity);
     const account = await this.accountService.connectAndGetAccount();
-    this.dataService.addCustomerOrder(this.selectedRetailer.address, account, this.orderId, this.selectedMedicine.medicineId).subscribe(() => {
-      this.closeDialogBox();
+    this.dataService.addCustomerOrder(account, this.selectedRetailer.address, this.orderId).subscribe(() => {
+      this.closeDialogBox(true);
     });
   }
 
-  closeDialogBox() {
-    this.ref.close();
+  closeDialogBox(value = false) {
+    this.ref.close(value);
   }
 
   disableSave() {

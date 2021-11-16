@@ -29,8 +29,7 @@ export class MyOrdersComponent implements OnInit {
   ngOnInit(): void {
     this.cols = [
       { field: 'orderId', header: 'Order ID' },
-      { field: 'retailerAddress', header: 'By' },
-      { field: 'confirmed', header: 'Status' }
+      { field: 'retailerAddress', header: 'Retailer' }
     ];
     this.getOrdersOfCustomer();
   }
@@ -46,20 +45,20 @@ export class MyOrdersComponent implements OnInit {
     this.orderViewRef = this.dialogService.open(OrderViewComponent, {
       header: 'Order',
       width: '680px',
-      data: { order: order, displayConfirm: false, displayAddress: 1 }
-    });
-
-    this.orderViewRef.onClose.subscribe((value: boolean) => {
-      if (value) {
-        this.getOrdersOfCustomer();
-      }
+      data: { order: order, displayConfirm: false, displayAddress: 4 }
     });
   }
 
-  createRetailerOrder() {
+  createCustomerOrder() {
     this.createOrderViewRef = this.dialogService.open(CreateOrderComponent, {
       header: 'Create Order',
       width: '680px'
+    });
+
+    this.createOrderViewRef.onClose.subscribe((value: boolean) => {
+      if (value) {
+        this.getOrdersOfCustomer();
+      }
     });
   }
 

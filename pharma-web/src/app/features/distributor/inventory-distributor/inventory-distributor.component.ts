@@ -26,7 +26,7 @@ export class InventoryDistributorComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [
-      { field: 'medicineId', header: 'MedicineId' },
+      { field: 'id', header: 'Medicine Id' },
       { field: 'name', header: 'Name' }
     ];
     this.getAllMedicines();

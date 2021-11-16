@@ -39,20 +39,28 @@ export class OrderViewComponent implements OnInit {
       this.getOrderInfo();
     } else if (this.displayAddress === 2) {
       this.getRetailerPlacedOrderInfo();
+    } else if (this.displayAddress === 3 || this.displayAddress === 4) {
+      this.getCustomerPlacedOrderInfo();
     }
   }
 
   async getOrderInfo() {
     const blockOrder = await this.contractService.getOrderInfoByIdOfDistributor(this.order.orderId);
     this.order.quantity = blockOrder.quantity;
-    this.order.amount = blockOrder.price;
+    this.order.amount = blockOrder.price / 10000;
+    this.medicineId = blockOrder.medicineId;
   }
 
   async getRetailerPlacedOrderInfo() {
-    const blockOrder = await this.contractService.getOrderInfoByIdOfRetailer(this.order.orderId, this.order.distributorAddress);
+    const blockOrder = await this.contractService.getOrderInfoByIdOfDistributor(this.order.orderId, this.order.distributorAddress);
     this.order.quantity = blockOrder.quantity;
-    this.order.amount = blockOrder.price;
-    this.medicineId = blockOrder.medicineId;
+    this.order.amount = blockOrder.price / 10000;
+  }
+
+  async getCustomerPlacedOrderInfo() {
+    const blockOrder = await this.contractService.getOrderInfoByIdOfRetailer(this.order.orderId, this.order.retailerAddress);
+    this.order.quantity = blockOrder.quantity;
+    this.order.amount = blockOrder.price / 10000;
   }
 
   async confirmOrder() {
