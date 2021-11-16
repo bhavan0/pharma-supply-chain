@@ -17,6 +17,7 @@ export class OrderListComponent implements OnInit {
   searchText = '';
   orders: Order[] = [];
   orderViewRef: any;
+  selectedOrder: any = null;
 
   constructor(
     private dataService: DataService,
@@ -48,6 +49,7 @@ export class OrderListComponent implements OnInit {
     });
 
     this.orderViewRef.onClose.subscribe((value: boolean) => {
+      this.selectedOrder = null;
       if (value) {
         this.getDistributorOrders();
       }

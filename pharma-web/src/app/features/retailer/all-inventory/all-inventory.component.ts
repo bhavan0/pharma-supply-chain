@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Medicine } from 'src/app/shared/models/medicine.model';
-import { DataService } from 'src/app/shared/services/data.service';
-import { AccountService } from 'src/app/shared/services/account.service';
 import { DialogService } from 'primeng';
-import { AddDistributorInventoryComponent } from '../add-distributor-inventory/add-distributor-inventory.component';
-import { InventoryViewComponent } from '../inventory-view/inventory-view.component';
+import { Medicine } from 'src/app/shared/models/medicine.model';
+import { AccountService } from 'src/app/shared/services/account.service';
+import { DataService } from 'src/app/shared/services/data.service';
+import { InventoryViewComponent } from '../../distributor/inventory-view/inventory-view.component';
 
 @Component({
-  selector: 'app-inventory-distributor',
-  templateUrl: './inventory-distributor.component.html',
-  styleUrls: ['./inventory-distributor.component.scss'],
+  selector: 'app-all-inventory',
+  templateUrl: './all-inventory.component.html',
+  styleUrls: ['./all-inventory.component.scss'],
   providers: [DialogService]
 })
-export class InventoryDistributorComponent implements OnInit {
+export class AllInventoryComponent implements OnInit {
 
   cols: any;
   medicines: Medicine[] = [];
@@ -40,24 +39,11 @@ export class InventoryDistributorComponent implements OnInit {
     });
   }
 
-  addInventory() {
-    this.addInventoryRef = this.dialogService.open(AddDistributorInventoryComponent, {
-      header: 'Add Inventory',
-      width: '680px'
-    });
-
-    this.addInventoryRef.onClose.subscribe((value: boolean) => {
-      if (value) {
-        this.getAllMedicines();
-      }
-    });
-  }
-
   onMedicineSelect(medicine: Medicine) {
     this.inventoryViewRef = this.dialogService.open(InventoryViewComponent, {
       header: 'Inventory',
       width: '680px',
-      data: { medicine: medicine, isRetailer: false }
+      data: { medicine: medicine, isRetailer: true }
     });
 
     this.inventoryViewRef.onClose.subscribe(() => {

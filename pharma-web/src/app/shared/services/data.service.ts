@@ -29,6 +29,14 @@ export class DataService {
         return this.postData<AllUsersResponse>(url, data);
     }
 
+    getRoleOfUser(address: string): Observable<any> {
+        const url = 'get-role';
+        const req = {
+            'address': address
+        };
+        return this.postData<any>(url, req);
+    }
+
     //#endregion Owner
 
     //#region Distributor

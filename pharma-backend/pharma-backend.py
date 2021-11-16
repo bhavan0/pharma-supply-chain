@@ -61,6 +61,18 @@ class Pharma(Resource):
 
         return {'Success': 'User Added'}, 200
 
+    @app.route('/get-role', methods=['POST'])
+    def getRoleOfUser():
+        userRequest = request.get_json()
+        address = userRequest['address']
+
+        pharmaDB = get_database('pharma')
+        collection_subscriptions = pharmaDB['users']
+
+        userRole = collection_subscriptions.find_one(
+            {"address": address}, {'role': 1, '_id': 0})
+
+        return userRole, 200
     # endregion Owner
 
     # region Distributor

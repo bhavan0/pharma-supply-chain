@@ -24,6 +24,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { RetailersOrderComponent } from './features/retailer/retailers-order/retailers-order.component';
 import { MyOrdersComponent } from './features/customer/my-orders/my-orders.component';
 import { CreateOrderComponent } from './features/customer/create-order/create-order.component';
+import { AllInventoryComponent } from './features/retailer/all-inventory/all-inventory.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { CreateOrderComponent } from './features/customer/create-order/create-or
     AddOrderComponent,
     RetailersOrderComponent,
     MyOrdersComponent,
-    CreateOrderComponent
+    CreateOrderComponent,
+    AllInventoryComponent
   ],
   imports: [
     BrowserModule,

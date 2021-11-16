@@ -13,21 +13,24 @@ export class HeaderComponent implements OnInit {
   navItems: MenuItem[] = [];
   activeRoute = -1;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router) {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         if (event.url.indexOf('user') !== -1) {
           this.activeRoute = 0;
+        } else if (event.url.indexOf('distributor-inventory') !== -1) {
+          this.activeRoute = 1;
         } else if (event.url.indexOf('distributor-orders') !== -1) {
           this.activeRoute = 2;
-        } else if (event.url.indexOf('distributor') !== -1) {
-          this.activeRoute = 1;
         } else if (event.url.indexOf('retailer-placed-orders') !== -1) {
           this.activeRoute = 3;
         } else if (event.url.indexOf('retailers-orders') !== -1) {
           this.activeRoute = 4;
-        } else if (event.url.indexOf('customer-orders') !== -1) {
+        } else if (event.url.indexOf('retailers-inventory') !== -1) {
           this.activeRoute = 5;
+        } else if (event.url.indexOf('customer-orders') !== -1) {
+          this.activeRoute = 6;
         }
         this.setUpMenu();
       });
@@ -49,7 +52,7 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Distributor Inventory',
         icon: 'ei ei-bus',
-        routerLink: './distributor',
+        routerLink: './distributor-inventory',
         routerLinkActiveOptions: {},
         styleClass: (this.activeRoute === 1) ? 'ui-state-active' : ''
       },
@@ -75,11 +78,18 @@ export class HeaderComponent implements OnInit {
         styleClass: (this.activeRoute === 4) ? 'ui-state-active' : ''
       },
       {
+        label: 'Retailers Inventory',
+        icon: 'ei ei-bus',
+        routerLink: './retailers-inventory',
+        routerLinkActiveOptions: {},
+        styleClass: (this.activeRoute === 5) ? 'ui-state-active' : ''
+      },
+      {
         label: 'Customer orders',
         icon: 'ei ei-bus',
         routerLink: './customer-orders',
         routerLinkActiveOptions: {},
-        styleClass: (this.activeRoute === 5) ? 'ui-state-active' : ''
+        styleClass: (this.activeRoute === 6) ? 'ui-state-active' : ''
       }
     ];
   }

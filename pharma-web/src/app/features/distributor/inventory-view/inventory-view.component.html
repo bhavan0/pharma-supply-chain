@@ -15,7 +15,8 @@
                 <label class="form-label" for="Name">Name</label>
             </div>
             <div class="form-input-div">
-                <input id="Name" [(ngModel)]="medicine.name" type="text" size="100" pInputText required>
+                <input id="Name" [disabled]="isRetailer" [(ngModel)]="medicine.name" type="text" size="100" pInputText
+                    required>
             </div>
         </div>
 
@@ -24,7 +25,8 @@
                 <label class="form-label" for="Quantity">Quantity</label>
             </div>
             <div class="form-input-div">
-                <input id="Quantity" [(ngModel)]="medicine.quantity" type="number" size="30" pInputText required>
+                <input id="Quantity" [disabled]="isRetailer" [(ngModel)]="medicine.quantity" type="number" size="30"
+                    pInputText required>
             </div>
         </div>
 

@@ -18,6 +18,7 @@ export class UserListComponent implements OnInit {
   users: UserModel[] = [];
   cols: any;
   searchText: string = '';
+  selectedUser: any = null;
 
   constructor(
     private dialogService: DialogService,
@@ -57,6 +58,10 @@ export class UserListComponent implements OnInit {
       header: 'User Details',
       width: '680px',
       data: { user: user }
+    });
+
+    this.userDetailsRef.onClose.subscribe(() => {
+      this.selectedUser = null;
     });
   }
 

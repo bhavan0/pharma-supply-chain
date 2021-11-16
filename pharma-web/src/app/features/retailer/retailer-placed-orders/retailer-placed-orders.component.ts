@@ -19,6 +19,7 @@ export class RetailerPlacedOrdersComponent implements OnInit {
   orders: Order[] = [];
   orderViewRef: any;
   createOrderViewRef: any;
+  selectedOrder: any = null
 
   constructor(
     private dataService: DataService,
@@ -50,6 +51,10 @@ export class RetailerPlacedOrdersComponent implements OnInit {
       header: 'Order',
       width: '680px',
       data: { order: order, displayConfirm: false, displayAddress: 2 }
+    });
+
+    this.orderViewRef.onClose.subscribe(() => {
+      this.selectedOrder = null;
     });
   }
 

@@ -4,34 +4,54 @@ import { MyOrdersComponent } from './features/customer/my-orders/my-orders.compo
 import { InventoryDistributorComponent } from './features/distributor/inventory-distributor/inventory-distributor.component';
 import { OrderListComponent } from './features/distributor/order-list/order-list.component';
 import { UserListComponent } from './features/owner/user-list/user-list.component';
+import { AllInventoryComponent } from './features/retailer/all-inventory/all-inventory.component';
 import { RetailerPlacedOrdersComponent } from './features/retailer/retailer-placed-orders/retailer-placed-orders.component';
 import { RetailersOrderComponent } from './features/retailer/retailers-order/retailers-order.component';
+import { AuthGuard } from './shared/services/auth-gaurd.service';
 
 
 const routes: Routes = [
   {
     path: 'users',
-    component: UserListComponent
+    component: UserListComponent,
+    data: {role: '10'},
+    canActivate: [AuthGuard]
   },
   {
-    path: 'distributor',
-    component: InventoryDistributorComponent
+    path: 'distributor-inventory',
+    component: InventoryDistributorComponent,
+    data: {role: '0'},
+    canActivate: [AuthGuard]
   },
   {
     path: 'distributor-orders',
-    component: OrderListComponent
+    component: OrderListComponent,
+    data: {role: '0'},
+    canActivate: [AuthGuard]
   },
   {
     path: 'retailer-placed-orders',
-    component: RetailerPlacedOrdersComponent
+    component: RetailerPlacedOrdersComponent,
+    data: {role: '1'},
+    canActivate: [AuthGuard]
   },
   {
     path: 'retailers-orders',
-    component: RetailersOrderComponent
+    component: RetailersOrderComponent,
+    data: {role: '1'},
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'retailers-inventory',
+    component: AllInventoryComponent,
+    data: {role: '1'},
+    canActivate: [AuthGuard]
   },
   {
     path: 'customer-orders',
-    component: MyOrdersComponent
+    component: MyOrdersComponent,
+    data: {role: '2'},
+    canActivate: [AuthGuard]
   }
 ];
 

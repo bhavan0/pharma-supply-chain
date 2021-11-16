@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 
@@ -7,13 +8,21 @@ import Web3Modal from "web3modal";
 })
 export class AccountService {
 
-    constructor() {
+    constructor(private router: Router) {
     }
 
     async connectAndGetAccount(): Promise<string> {
         window.web3 = await this.connect();
 
         return window.web3.currentProvider.selectedAddress;
+    }
+
+    async checkAccountChange() {
+        window.ethereum.on('accountsChanged', () => {
+            this.router.navigateByUrl('').then(() =>{
+                window.location.reload();
+            });
+        });
     }
 
     private async connect() {

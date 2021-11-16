@@ -49,7 +49,7 @@ export class ContractService {
         await this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.updateInventoryByDistibuter(medicineId, quantity, price * 1000).send({ from: this.account })
+                .methods.updateInventoryByDistibuter(medicineId, quantity, price * 10000).send({ from: this.account })
             resolve(res);
         });
     }
@@ -113,6 +113,15 @@ export class ContractService {
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
                 .methods.getMedicineByIdOfRetailer(medicineId, retailerAddress ?? this.account).call({ from: this.account })
+            resolve(res);
+        });
+    }
+
+    async updatePriceOfInventoryByRetailer(medicineId: number, price: number): Promise<any> {
+        await this.getAccount();
+        return new Promise(async (resolve) => {
+            const res = await this.pharmaContract
+                .methods.updatePriceOfInventoryByRetailer(medicineId, price * 10000).send({ from: this.account })
             resolve(res);
         });
     }

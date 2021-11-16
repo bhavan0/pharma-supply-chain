@@ -1,7 +1,7 @@
 <h1 class="page-title">Users</h1>
 
 <p-table #usersTable [columns]="cols" [value]="users" [paginator]="true" [rows]="10" selectionMode="single"
-    (onRowSelect)="onUserSelect($event.data)">
+    (onRowSelect)="onUserSelect($event.data)" [(selection)]="selectedUser">
 
     <ng-template pTemplate="caption">
         <div class="flex-body justify-content-between">

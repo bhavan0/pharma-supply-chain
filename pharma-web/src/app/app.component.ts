@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
 
   async getAccount() {
     this.account = await this.accountService.connectAndGetAccount();
+    this.accountService.checkAccountChange();
     console.log(this.account);
   }
 }

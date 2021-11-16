@@ -1,7 +1,7 @@
 <h1 class="page-title">Orders</h1>
 
 <p-table #ordersTable [columns]="cols" [value]="orders" [paginator]="true" [rows]="10" selectionMode="single"
-    (onRowSelect)="onOrderSelection($event.data)">
+    (onRowSelect)="onOrderSelection($event.data)" [(selection)]="selectedOrder">
 
     <ng-template pTemplate="caption">
         <div class="flex-body justify-content-between">
