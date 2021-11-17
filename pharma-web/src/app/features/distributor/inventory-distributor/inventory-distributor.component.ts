@@ -34,8 +34,8 @@ export class InventoryDistributorComponent implements OnInit {
     this.getAllMedicines();
   }
 
-  async getAllMedicines() {
-    const account = await this.accountService.connectAndGetAccount();
+  getAllMedicines() {
+    const account = this.accountService.account;
     this.dataService.getAllUsersMedicines(account).subscribe(data => {
       this.medicines = data.medicines;
     });

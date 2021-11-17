@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   title = 'pharma-web';
 
   account = '';
+  loaded = false;
 
   constructor(
     private accountService: AccountService) {
@@ -17,12 +18,14 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loaded = false;
     this.getAccount();
   }
 
   async getAccount() {
     this.account = await this.accountService.connectAndGetAccount();
     this.accountService.checkAccountChange();
+    this.loaded = true;
     console.log(this.account);
   }
 }

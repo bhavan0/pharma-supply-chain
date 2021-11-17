@@ -14,8 +14,8 @@ export class PageHeaderComponent implements OnInit {
 
   }
 
-  async ngOnInit(): Promise<void> {
-    this.userName = await this.accountService.connectAndGetAccount();
+  ngOnInit(): void {
+    this.userName = this.accountService.account;
   }
 
 }

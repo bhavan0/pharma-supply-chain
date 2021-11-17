@@ -2,24 +2,37 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import Web3 from 'web3';
 import Web3Modal from 'web3modal';
+import { DataService } from './data.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AccountService {
 
-    constructor(private router: Router) {
+    account = '';
+    userRole!: number;
+
+    constructor(
+        private router: Router,
+        private dataService: DataService) {
     }
 
     async connectAndGetAccount(): Promise<string> {
         window.web3 = await this.connect();
+        this.account = window.web3.currentProvider.selectedAddress;
 
-        return window.web3.currentProvider.selectedAddress;
+        return new Promise((resolve) => {
+            this.dataService.getRoleOfUser(this.account).subscribe(data => {
+                this.userRole = +data.role;
+                resolve(this.account);
+            });
+        });
     }
 
     async checkAccountChange() {
         window.ethereum.on('accountsChanged', () => {
-            this.router.navigateByUrl('').then(() => {
+            this.router.navigateByUrl('/dashboard').then(() => {
+                this.account = '';
                 window.location.reload();
             });
         });

@@ -37,8 +37,8 @@ export class RetailerPlacedOrdersComponent implements OnInit {
     this.getRetailerPlacedOrders();
   }
 
-  async getRetailerPlacedOrders() {
-    const account = await this.accountService.connectAndGetAccount();
+  getRetailerPlacedOrders() {
+    const account = this.accountService.account;
     this.dataService.getRetailerPlacedOrders(account).subscribe(data => {
       if (data.orders as any !== '') {
         this.orders = data.orders;

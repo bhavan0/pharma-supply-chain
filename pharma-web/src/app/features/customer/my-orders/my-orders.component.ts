@@ -35,8 +35,8 @@ export class MyOrdersComponent implements OnInit {
     this.getOrdersOfCustomer();
   }
 
-  async getOrdersOfCustomer() {
-    const account = await this.accountService.connectAndGetAccount();
+  getOrdersOfCustomer() {
+    const account = this.accountService.account;
     this.dataService.getCustomerOrders(account).subscribe(data => {
       this.orders = data.orders;
     });

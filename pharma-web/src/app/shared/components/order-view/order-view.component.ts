@@ -64,7 +64,7 @@ export class OrderViewComponent implements OnInit {
   }
 
   async confirmOrder() {
-    const account = await this.accountService.connectAndGetAccount();
+    const account = this.accountService.account;
     await this.contractService.confirmOrderByDistributor(this.order.orderId);
 
     this.dataService.confirmDistributorOrder(account, this.order.retailerAddress, this.order.orderId, this.medicineId).subscribe(data => {

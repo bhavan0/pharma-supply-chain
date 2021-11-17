@@ -1,11 +1,8 @@
 from flask import Flask
-from flask_restful import Resource, Api, reqparse, request
+from flask_restful import Resource, Api, request
 from flask_cors import CORS
-from bson import json_util
 from database_connection import get_database
-import requests
 import json
-import random
 
 
 app = Flask(__name__)
@@ -72,7 +69,31 @@ class Pharma(Resource):
         userRole = collection_subscriptions.find_one(
             {"address": address}, {'role': 1, '_id': 0})
 
+        if userRole is None:
+            userRole = {
+                'role': '2'
+            }
+
         return userRole, 200
+
+    @app.route('/add-owner', methods=['POST'])
+    def addOwner():
+        userRequest = request.get_json()
+        address = userRequest['address']
+
+        pharmaDB = get_database('pharma')
+        collection_subscriptions = pharmaDB['users']
+
+        user = {
+            'name': 'owner',
+            'role': 99,
+            'address': address
+        }
+
+        collection_subscriptions.insert_one(user)
+
+        return {'Success': 'Owner Added'}, 200
+
     # endregion Owner
 
     # region Distributor
@@ -327,7 +348,7 @@ class Pharma(Resource):
 
         orders = []
 
-        if len(userData) > 0:
+        if userData != None and len(userData) > 0:
             orders = json.loads(json.dumps(userData['ordersPlaced']))
 
         return {'orders': orders}, 200
@@ -367,7 +388,7 @@ class Pharma(Resource):
         if customerData is None:
             customerData = {
                 'name': 'C1',
-                'role': 2,
+                'role': '2',
                 'address': customerAddress,
                 'ordersPlaced': []
             }

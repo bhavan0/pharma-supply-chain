@@ -34,8 +34,8 @@ export class RetailersOrderComponent implements OnInit {
     this.getOrdersOfRetailer();
   }
 
-  async getOrdersOfRetailer() {
-    const account = await this.accountService.connectAndGetAccount();
+  getOrdersOfRetailer() {
+    const account = this.accountService.account;
     this.dataService.getRetailersOrders(account).subscribe(data => {
       this.orders = data.orders;
     });

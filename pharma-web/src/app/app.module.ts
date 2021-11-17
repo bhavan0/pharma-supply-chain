@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ButtonModule, DialogModule, DynamicDialogModule, InputTextModule, MenubarModule, TableModule, ToastModule } from 'primeng';
+import { ButtonModule, CardModule, DialogModule, DynamicDialogModule, InputTextModule, MenubarModule, TableModule, ToastModule } from 'primeng';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { PageHeaderComponent } from './shared/components/page-header/page-header.component';
 import { RegisterComponent } from './features/owner/register/register.component';
@@ -25,6 +25,7 @@ import { RetailersOrderComponent } from './features/retailer/retailers-order/ret
 import { MyOrdersComponent } from './features/customer/my-orders/my-orders.component';
 import { CreateOrderComponent } from './features/customer/create-order/create-order.component';
 import { AllInventoryComponent } from './features/retailer/all-inventory/all-inventory.component';
+import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { AllInventoryComponent } from './features/retailer/all-inventory/all-inv
     RetailersOrderComponent,
     MyOrdersComponent,
     CreateOrderComponent,
-    AllInventoryComponent
+    AllInventoryComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,8 @@ import { AllInventoryComponent } from './features/retailer/all-inventory/all-inv
     MenubarModule,
     HttpClientModule,
     DropdownModule,
-    InputNumberModule
+    InputNumberModule,
+    CardModule
   ],
   providers: [],
   bootstrap: [AppComponent],

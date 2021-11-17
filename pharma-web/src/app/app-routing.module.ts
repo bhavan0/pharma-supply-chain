@@ -7,50 +7,60 @@ import { UserListComponent } from './features/owner/user-list/user-list.componen
 import { AllInventoryComponent } from './features/retailer/all-inventory/all-inventory.component';
 import { RetailerPlacedOrdersComponent } from './features/retailer/retailer-placed-orders/retailer-placed-orders.component';
 import { RetailersOrderComponent } from './features/retailer/retailers-order/retailers-order.component';
+import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
 import { AuthGuard } from './shared/services/auth-gaurd.service';
 
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full'
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  },
+  {
     path: 'users',
     component: UserListComponent,
-    data: {role: '10'},
+    data: { role: '10' },
     canActivate: [AuthGuard]
   },
   {
     path: 'distributor-inventory',
     component: InventoryDistributorComponent,
-    data: {role: '0'},
+    data: { role: '0' },
     canActivate: [AuthGuard]
   },
   {
     path: 'distributor-orders',
     component: OrderListComponent,
-    data: {role: '0'},
+    data: { role: '0' },
     canActivate: [AuthGuard]
   },
   {
     path: 'retailer-placed-orders',
     component: RetailerPlacedOrdersComponent,
-    data: {role: '1'},
+    data: { role: '1' },
     canActivate: [AuthGuard]
   },
   {
     path: 'retailers-orders',
     component: RetailersOrderComponent,
-    data: {role: '1'},
+    data: { role: '1' },
     canActivate: [AuthGuard]
   },
   {
     path: 'retailers-inventory',
     component: AllInventoryComponent,
-    data: {role: '1'},
+    data: { role: '1' },
     canActivate: [AuthGuard]
   },
   {
     path: 'customer-orders',
     component: MyOrdersComponent,
-    data: {role: '2'},
+    data: { role: '2' },
     canActivate: [AuthGuard]
   }
 ];

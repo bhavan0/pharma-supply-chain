@@ -54,7 +54,7 @@ export class CreateOrderComponent implements OnInit {
   async placeOrder() {
     await this.contractService.createCustomerOrder(this.selectedRetailer.address, this.selectedMedicine.id,
       this.orderId, this.selectedQuantity);
-    const account = await this.accountService.connectAndGetAccount();
+    const account = this.accountService.account;
     this.dataService.addCustomerOrder(account, this.selectedRetailer.address, this.orderId).subscribe(() => {
       this.closeDialogBox(true);
     });
