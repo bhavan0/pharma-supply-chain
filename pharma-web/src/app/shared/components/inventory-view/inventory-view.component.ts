@@ -11,7 +11,6 @@ import { DataService } from 'src/app/shared/services/data.service';
 })
 export class InventoryViewComponent implements OnInit {
 
-
   medicine!: Medicine;
   oldQuantity!: number;
   oldPrice!: number;
@@ -57,8 +56,8 @@ export class InventoryViewComponent implements OnInit {
 
   disableSave() {
     return this.isRetailer
-      ? !(this.oldPrice !== this.medicine.price)
-      : !(this.oldName !== this.medicine.name || this.oldPrice !== this.medicine.price
+      ? +this.medicine.quantity === 0 && !(this.oldPrice !== this.medicine.price)
+      : this.medicine.recalled && !(this.oldName !== this.medicine.name || this.oldPrice !== this.medicine.price
         || this.oldQuantity !== this.medicine.quantity);
   }
 
