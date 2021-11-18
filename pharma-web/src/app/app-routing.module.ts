@@ -24,43 +24,43 @@ const routes: Routes = [
   {
     path: 'users',
     component: UserListComponent,
-    data: { role: '10' },
+    data: { role: 99 },
     canActivate: [AuthGuard]
   },
   {
     path: 'distributor-inventory',
     component: InventoryDistributorComponent,
-    data: { role: '0' },
+    data: { role: 0 },
     canActivate: [AuthGuard]
   },
   {
     path: 'distributor-orders',
     component: OrderListComponent,
-    data: { role: '0' },
+    data: { role: 0 },
     canActivate: [AuthGuard]
   },
   {
     path: 'retailer-placed-orders',
     component: RetailerPlacedOrdersComponent,
-    data: { role: '1' },
+    data: { role: 1 },
     canActivate: [AuthGuard]
   },
   {
     path: 'retailers-orders',
     component: RetailersOrderComponent,
-    data: { role: '1' },
+    data: { role: 1 },
     canActivate: [AuthGuard]
   },
   {
     path: 'retailers-inventory',
     component: AllInventoryComponent,
-    data: { role: '1' },
+    data: { role: 1 },
     canActivate: [AuthGuard]
   },
   {
     path: 'customer-orders',
     component: MyOrdersComponent,
-    data: { role: '2' },
+    data: { role: 2 },
     canActivate: [AuthGuard]
   }
 ];

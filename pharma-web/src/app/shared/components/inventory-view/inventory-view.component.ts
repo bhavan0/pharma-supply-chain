@@ -88,6 +88,14 @@ export class InventoryViewComponent implements OnInit {
     }
   }
 
+  async recallInventory() {
+    await this.contractService.recallInventory(this.medicine.id);
+
+    this.dataService.recallMedicine(this.medicine.id, this.contractService.account).subscribe(() => {
+      this.closeDialogBox(true);
+    });
+  }
+
   closeDialogBox(value: boolean = false) {
     this.ref.close(value);
   }

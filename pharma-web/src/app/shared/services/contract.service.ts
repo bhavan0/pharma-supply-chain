@@ -126,4 +126,13 @@ export class ContractService {
         });
     }
 
+    async recallInventory(medicineId: number): Promise<any> {
+        this.getAccount();
+        return new Promise(async (resolve) => {
+            const res = await this.pharmaContract
+                .methods.replaceMedicine(medicineId).send({ from: this.account });
+            resolve(res);
+        });
+    }
+
 }

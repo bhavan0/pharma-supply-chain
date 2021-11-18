@@ -29,7 +29,8 @@ export class InventoryDistributorComponent implements OnInit {
   ngOnInit(): void {
     this.cols = [
       { field: 'id', header: 'Medicine Id' },
-      { field: 'name', header: 'Name' }
+      { field: 'name', header: 'Name' },
+      { field: 'recalled', header: 'Recalled' }
     ];
     this.getAllMedicines();
   }
@@ -55,15 +56,17 @@ export class InventoryDistributorComponent implements OnInit {
   }
 
   onMedicineSelect(medicine: Medicine) {
-    this.inventoryViewRef = this.dialogService.open(InventoryViewComponent, {
-      header: 'Inventory',
-      width: '680px',
-      data: { medicine, isRetailer: false }
-    });
+    if (!medicine.recalled) {
+      this.inventoryViewRef = this.dialogService.open(InventoryViewComponent, {
+        header: 'Inventory',
+        width: '680px',
+        data: { medicine, isRetailer: false }
+      });
 
-    this.inventoryViewRef.onClose.subscribe(() => {
-      this.selectedMedicine = null;
-    });
+      this.inventoryViewRef.onClose.subscribe(() => {
+        this.selectedMedicine = null;
+      });
+    }
   }
 
 }

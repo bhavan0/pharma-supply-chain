@@ -89,6 +89,16 @@ export class DataService {
         return this.getData<AllUsersResponse>(url);
     }
 
+    recallMedicine(medicineId: number, account: string): Observable<MedicineBase> {
+        const url = 'recall-medicine';
+        const req = {
+            medicineId,
+            address: account
+        };
+
+        return this.postData<MedicineBase>(url, req);
+    }
+
     //#endregion Distributor
 
     //#region Retailer

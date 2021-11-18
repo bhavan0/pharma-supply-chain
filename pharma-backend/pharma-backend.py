@@ -128,12 +128,11 @@ class Pharma(Resource):
 
         med = {
             'id': medicineId,
-            'name': name
+            'name': name,
+            'recalled': False
         }
 
         medicines.append(med)
-
-        print(medicines)
 
         collection_subscriptions.update_one({"_id": userData['_id']}, {
             "$set": {"medicines": medicines}})
@@ -241,6 +240,29 @@ class Pharma(Resource):
 
         return {'Success': 'Order Confirmed'}, 200
 
+    @app.route('/recall-medicine', methods=['POST'])
+    def recallMedicine():
+        userRequest = request.get_json()
+        address = userRequest['address']
+        medicineId = userRequest['medicineId']
+
+        pharmaDB = get_database('pharma')
+        collection_subscriptions = pharmaDB['users']
+
+        userData = collection_subscriptions.find_one({"address": address})
+
+        medicines = json.loads(json.dumps(userData['medicines']))
+
+        med = next(
+            x for x in medicines if x['id'] == medicineId)
+
+        med['recalled'] = True
+
+        collection_subscriptions.update_one({"_id": userData['_id']}, {
+            "$set": {"medicines": medicines}})
+
+        return {'Success': 'Medicine Updated'}, 200
+        
     # endregion Distributor
 
     # region Retailer

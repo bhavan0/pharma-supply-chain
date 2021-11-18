@@ -7,4 +7,5 @@ export class MedicineBase {
 export class Medicine extends MedicineBase {
     price!: number;
     quantity!: number;
+    recalled!: boolean;
 }
