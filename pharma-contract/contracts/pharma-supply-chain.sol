@@ -77,7 +77,7 @@ contract PharmaContract is ERC20 {
     
     mapping(address => DistributorListOfMedicine) inventoryOfDistributors;
     
-    mapping(address => ListMedicinesR) inventoryOfRetailers;
+    mapping(address => RetailerListOfMedicine) inventoryOfRetailers;
     
     mapping(address => DistributorOrder) distributorOrders;
 
@@ -201,7 +201,7 @@ contract PharmaContract is ERC20 {
     
     // Called by distributor if he has to recall any medicine sold, will be paying back all the transactions already done.
     // Note: Retailer will get more money if he had already updated the price of medicine he had bought.
-    function recallMedicine(uint medicineId) onlyDistributor public virtual {
+    function recallInventory(uint medicineId) onlyDistributor public virtual {
         uint len = medicinesHeld[msg.sender].medicines[medicineId].length;
         for (uint i = 0; i < len; i++){
             transfer(medicinesHeld[msg.sender].medicines[medicineId][i].user, medicinesHeld[msg.sender].medicines[medicineId][i].amountPaid);
