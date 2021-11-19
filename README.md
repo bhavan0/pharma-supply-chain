@@ -121,6 +121,12 @@ Components of the Design:
 
 <br />
 
+### Latest Deployed address of smart contract
+> 0xe7EF2d5F0bde917bf2DAd1a3dFa1cF8CB00AFc50
+
+* Deployed Smart contract in remix
+   > ![Deployed Smart contract in remix image](./images-for-readme/deployed-smart-contract-in-remix.png)
+
 ### Steps To run application
 
 * Add your secret key (12 word nmemonic) by creating a .secret file, in the pharma-contract folder
