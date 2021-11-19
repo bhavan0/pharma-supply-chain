@@ -14,11 +14,13 @@ CORS(app, allow_headers=['Content-Type', 'Access-Control-Allow-Origin',
 
 class Pharma(Resource):
 
+    connectionString = ''
+
     # region Owner
 
     @app.route('/get-all-users', methods=['GET'])
     def getAllUsers():
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         allUsers = collection_subscriptions.find(
@@ -42,7 +44,7 @@ class Pharma(Resource):
         role = userRequest['role']
         address = userRequest['address']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         user = {
@@ -63,7 +65,7 @@ class Pharma(Resource):
         userRequest = request.get_json()
         address = userRequest['address']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         userRole = collection_subscriptions.find_one(
@@ -85,7 +87,7 @@ class Pharma(Resource):
         userRequest = request.get_json()
         address = userRequest['address']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         userData = collection_subscriptions.find_one({"address": address})
@@ -101,7 +103,7 @@ class Pharma(Resource):
         medicineId = userRequest['medicineId']
         name = userRequest['name']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         userData = collection_subscriptions.find_one({"address": address})
@@ -128,7 +130,7 @@ class Pharma(Resource):
         medicineId = userRequest['medicineId']
         name = userRequest['name']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         userData = collection_subscriptions.find_one({"address": address})
@@ -150,7 +152,7 @@ class Pharma(Resource):
         userRequest = request.get_json()
         address = userRequest['address']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         userData = collection_subscriptions.find_one({"address": address})
@@ -161,7 +163,7 @@ class Pharma(Resource):
 
     @app.route('/get-all-distributors', methods=['GET'])
     def getAllDistributors():
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         allUsers = collection_subscriptions.find(
@@ -178,7 +180,7 @@ class Pharma(Resource):
         retailerAddress = userRequest['retailerAddress']
         medicineId = userRequest['medicineId']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         # Update Distributor Document
@@ -228,7 +230,7 @@ class Pharma(Resource):
         address = userRequest['address']
         medicineId = userRequest['medicineId']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         userData = collection_subscriptions.find_one({"address": address})
@@ -251,7 +253,7 @@ class Pharma(Resource):
 
     @app.route('/get-all-retailers', methods=['GET'])
     def getAllRetailers():
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         allUsers = collection_subscriptions.find(
@@ -267,7 +269,7 @@ class Pharma(Resource):
         orderId = userRequest['orderId']
         retailerAddress = userRequest['retailerAddress']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         # Update Distributor Document
@@ -313,7 +315,7 @@ class Pharma(Resource):
         userRequest = request.get_json()
         address = userRequest['address']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         userData = collection_subscriptions.find_one({"address": address})
@@ -327,7 +329,7 @@ class Pharma(Resource):
         userRequest = request.get_json()
         address = userRequest['address']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         userData = collection_subscriptions.find_one({"address": address})
@@ -345,7 +347,7 @@ class Pharma(Resource):
         userRequest = request.get_json()
         address = userRequest['address']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         userData = collection_subscriptions.find_one({"address": address})
@@ -364,7 +366,7 @@ class Pharma(Resource):
         orderId = userRequest['orderId']
         retailerAddress = userRequest['retailerAddress']
 
-        pharmaDB = get_database('pharma')
+        pharmaDB = get_database(Pharma.connectionString, 'pharma')
         collection_subscriptions = pharmaDB['users']
 
         # Update Retailer Document
@@ -418,21 +420,18 @@ class Pharma(Resource):
     # endregion Customer
 
     def addOwner():
-        pharmaDB = get_database('pharma')
-        collection_subscriptions = pharmaDB['users']
+        with open("config.json", "r") as read_file:
+            developer = json.load(read_file)
+            Pharma.connectionString = developer.get('mongoConnection')
 
-        retailerData = collection_subscriptions.find_one(
-            {"name": "owner"})
+            pharmaDB = get_database(Pharma.connectionString, 'pharma')
+            collection_subscriptions = pharmaDB['users']
 
-        if retailerData is None:
+            retailerData = collection_subscriptions.find_one(
+                {"name": "owner"})
 
-            with open("config.json", "r") as read_file:
-                developer = json.load(read_file)
-
+            if retailerData is None:
                 owner = developer.get('owner')
-
-                pharmaDB = get_database('pharma')
-                collection_subscriptions = pharmaDB['users']
 
                 user = {
                     'name': 'owner',
