@@ -1,4 +1,4 @@
-export const eventAddress = '0x22f3Fc5a3e91B605825405B7d3CE3FE0b69c3f2d';
+export const eventAddress = '0x6Aa3294d84742A1eeA6CBC6Db419E900Df0F7FC6';
 
 export const eventAbi = [
   {
@@ -276,6 +276,42 @@ export const eventAbi = [
         'internalType': 'uint256',
         'name': 'medicineId',
         'type': 'uint256'
+      }
+    ],
+    'name': 'getAllMedicineHolders',
+    'outputs': [
+      {
+        'components': [
+          {
+            'internalType': 'address',
+            'name': 'user',
+            'type': 'address'
+          },
+          {
+            'internalType': 'uint256',
+            'name': 'quantity',
+            'type': 'uint256'
+          },
+          {
+            'internalType': 'uint256',
+            'name': 'amountPaid',
+            'type': 'uint256'
+          }
+        ],
+        'internalType': 'struct PharmaContract.MedicinesHeld[]',
+        'name': '',
+        'type': 'tuple[]'
+      }
+    ],
+    'stateMutability': 'nonpayable',
+    'type': 'function'
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': 'medicineId',
+        'type': 'uint256'
       },
       {
         'internalType': 'uint256',
@@ -319,6 +355,32 @@ export const eventAbi = [
   {
     'inputs': [
       {
+        'internalType': 'uint256',
+        'name': 'orderNo',
+        'type': 'uint256'
+      }
+    ],
+    'name': 'confirmOrderByDistributor',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
+    'type': 'function'
+  },
+  {
+    'inputs': [
+      {
+        'internalType': 'uint256',
+        'name': 'medicineId',
+        'type': 'uint256'
+      }
+    ],
+    'name': 'recallInventory',
+    'outputs': [],
+    'stateMutability': 'nonpayable',
+    'type': 'function'
+  },
+  {
+    'inputs': [
+      {
         'internalType': 'address',
         'name': 'distributorAddress',
         'type': 'address'
@@ -340,19 +402,6 @@ export const eventAbi = [
       }
     ],
     'name': 'createRetailerOrder',
-    'outputs': [],
-    'stateMutability': 'nonpayable',
-    'type': 'function'
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': 'orderNo',
-        'type': 'uint256'
-      }
-    ],
-    'name': 'confirmOrderByDistributor',
     'outputs': [],
     'stateMutability': 'nonpayable',
     'type': 'function'
@@ -526,19 +575,6 @@ export const eventAbi = [
         'type': 'uint256'
       }
     ],
-    'stateMutability': 'nonpayable',
-    'type': 'function'
-  },
-  {
-    'inputs': [
-      {
-        'internalType': 'uint256',
-        'name': 'medicineId',
-        'type': 'uint256'
-      }
-    ],
-    'name': 'recallInventory',
-    'outputs': [],
     'stateMutability': 'nonpayable',
     'type': 'function'
   }

@@ -23,7 +23,10 @@ export class AddDistributorInventoryComponent implements OnInit {
   }
 
   disableSave(): boolean {
-    return this.medicine.id === null || this.medicine.name === null || this.medicine?.price === 0 || this.medicine?.quantity === 0;
+    return this.medicine.id === undefined || this.medicine.id === null
+      || this.medicine.name === undefined || this.medicine.name === null
+      || this.medicine.price === undefined || this.medicine.price === null || this.medicine.price === 0
+      || this.medicine.quantity === undefined || this.medicine.quantity === null || this.medicine.quantity === 0;
   }
 
   async addInventory() {

@@ -16,6 +16,8 @@ export class InventoryViewComponent implements OnInit {
   oldPrice!: number;
   oldName!: string;
   isRetailer = false;
+  medicineUsers: any[] = [];
+  medicineUsersLoaded = false;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -93,6 +95,20 @@ export class InventoryViewComponent implements OnInit {
     this.dataService.recallMedicine(this.medicine.id, this.contractService.account).subscribe(() => {
       this.closeDialogBox(true);
     });
+  }
+
+  async trackInventory() {
+    this.medicineUsersLoaded = false;
+    this.medicineUsers = [];
+    const users = await this.contractService.getAllMedicineHolders(this.medicine.id);
+    if (users?.length > 0) {
+      users.forEach((user: { user: string; }) => {
+        this.medicineUsers.push({
+          user: user.user
+        });
+      });
+    }
+    this.medicineUsersLoaded = true;
   }
 
   closeDialogBox(value: boolean = false) {

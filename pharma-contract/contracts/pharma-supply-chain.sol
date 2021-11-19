@@ -6,11 +6,17 @@ import "./pharma-ERC20.sol";
 
 contract PharmaContract is ERC20 {
     
+    // #region Constants
+    
     address private owner;
     string private _ERCname = "Pharma Token";
     string private _ERCsymbol = "PRM";
     uint private _ERCtotalSupply = 5000000000;
     uint private _ERCdecimal = 4;
+    
+    // #region Constants
+    
+    // #region DataTypes
     
     enum UserType{
         Distributor,
@@ -85,6 +91,10 @@ contract PharmaContract is ERC20 {
     
     mapping(address => Medicines) medicinesHeld;
     
+    // #endregion DataTypes
+    
+    // #region Modifiers
+    
     modifier onlyOwner {
         require(msg.sender == owner, 'Only Owner can call this function');
         _;
@@ -100,10 +110,19 @@ contract PharmaContract is ERC20 {
         _;
     }
     
-    constructor () ERC20(_ERCname, _ERCsymbol, _ERCtotalSupply, _ERCdecimal)
+    modifier onlyOwnerOrDistributor {
+        require(msg.sender == owner || roles[UserType.Distributor].members[msg.sender], 'Only Owner or Distributor can call this function');
+        _;
+    }
+    
+    // #endregion Modifiers
+    
+    constructor () ERC20(_ERCname, _ERCsymbol, _ERCtotalSupply * 10000, _ERCdecimal)
     {
         owner = msg.sender;
     }
+    
+    // #region Owner Specific Functions
     
     function close() onlyOwner public{
         selfdestruct(payable(msg.sender));
@@ -116,6 +135,16 @@ contract PharmaContract is ERC20 {
         return true;
     }
     
+    // #endregion Owner Specific Functions
+    
+    // #region Distributor Specific Functions
+    
+    // Returns the list of all users who had the medicine with them.
+    // Can be used for tracking, in case someone has used any of the medicines
+    function getAllMedicineHolders(uint medicineId) onlyOwnerOrDistributor public virtual returns (MedicinesHeld[] memory){
+        return medicinesHeld[msg.sender].medicines[medicineId];
+    }
+    
     // Distributors add inventory
     function addInventoryByDistibuter(uint medicineId, uint quantity, uint price) onlyDistributor public virtual {
         inventoryOfDistributors[msg.sender].medicines[medicineId].quantity = quantity;
@@ -126,16 +155,6 @@ contract PharmaContract is ERC20 {
     function updateInventoryByDistibuter(uint medicineId, uint quantity, uint price) onlyDistributor public virtual {
         inventoryOfDistributors[msg.sender].medicines[medicineId].quantity = quantity;
         inventoryOfDistributors[msg.sender].medicines[medicineId].price = price;
-    }
-    
-    // Retailer calls to create an Order to specified distributor
-    function createRetailerOrder(address distributorAddress, uint medicineId, uint orderNo, uint quantity) onlyRetailer public virtual {
-        distributorOrders[distributorAddress].order[orderNo].medicineId = medicineId;
-        distributorOrders[distributorAddress].order[orderNo].quantity = quantity;
-        distributorOrders[distributorAddress].order[orderNo].amount = quantity * inventoryOfDistributors[distributorAddress].medicines[medicineId].price;
-        distributorOrders[distributorAddress].order[orderNo].retailer = msg.sender;
-        distributorOrders[distributorAddress].order[orderNo].confirmation = false;
-        approve(distributorAddress, distributorOrders[distributorAddress].order[orderNo].amount);
     }
     
     // Distributor calls to confirm a specific order no
@@ -158,10 +177,41 @@ contract PharmaContract is ERC20 {
         medicinesHeld[msg.sender].medicines[medicineId].push(MedicinesHeld(retailerAddress, quantity, totalAmount));
     }
     
+    // Called by distributor if he has to recall any medicine sold, will be paying back all the transactions already done.
+    // Note: Retailer will get more money if he had already updated the price of medicine he had bought.
+    function recallInventory(uint medicineId) onlyDistributor public virtual {
+        uint len = medicinesHeld[msg.sender].medicines[medicineId].length;
+        for (uint i = 0; i < len; i++){
+            transfer(medicinesHeld[msg.sender].medicines[medicineId][i].user, medicinesHeld[msg.sender].medicines[medicineId][i].amountPaid);
+            if(roles[UserType.Retailer].members[medicinesHeld[msg.sender].medicines[medicineId][i].user]){
+                inventoryOfRetailers[medicinesHeld[msg.sender].medicines[medicineId][i].user].medicines[medicineId].quantity = 0;
+                inventoryOfDistributors[msg.sender].medicines[medicineId].quantity = 0;
+            }
+        }
+    }
+    
+    // #endregion Distributor Specific Functions
+     
+    // #region Retailer Specific Functions
+    
+    // Retailer calls to create an Order to specified distributor
+    function createRetailerOrder(address distributorAddress, uint medicineId, uint orderNo, uint quantity) onlyRetailer public virtual {
+        distributorOrders[distributorAddress].order[orderNo].medicineId = medicineId;
+        distributorOrders[distributorAddress].order[orderNo].quantity = quantity;
+        distributorOrders[distributorAddress].order[orderNo].amount = quantity * inventoryOfDistributors[distributorAddress].medicines[medicineId].price;
+        distributorOrders[distributorAddress].order[orderNo].retailer = msg.sender;
+        distributorOrders[distributorAddress].order[orderNo].confirmation = false;
+        approve(distributorAddress, distributorOrders[distributorAddress].order[orderNo].amount);
+    }
+    
     // Retailer calls to update any price of inventory he has
     function updatePriceOfInventoryByRetailer(uint medicineId, uint price) onlyRetailer public virtual {
         inventoryOfRetailers[msg.sender].medicines[medicineId].price = price;
     }
+    
+    // #endregion Retailer Specific Functions
+    
+    // #region Open Functions
     
     // Returns the Medicine Info by ID of specified Distributor address
     function getMedicineByIdOfDistributor(uint medicineId, address distributorAddress) public virtual returns(uint quantity, uint price){
@@ -199,16 +249,5 @@ contract PharmaContract is ERC20 {
         return (inventoryOfRetailers[retailerAddress].medicines[medicineId].quantity, inventoryOfRetailers[retailerAddress].medicines[medicineId].price);
     }
     
-    // Called by distributor if he has to recall any medicine sold, will be paying back all the transactions already done.
-    // Note: Retailer will get more money if he had already updated the price of medicine he had bought.
-    function recallInventory(uint medicineId) onlyDistributor public virtual {
-        uint len = medicinesHeld[msg.sender].medicines[medicineId].length;
-        for (uint i = 0; i < len; i++){
-            transfer(medicinesHeld[msg.sender].medicines[medicineId][i].user, medicinesHeld[msg.sender].medicines[medicineId][i].amountPaid);
-            if(roles[UserType.Retailer].members[medicinesHeld[msg.sender].medicines[medicineId][i].user]){
-                inventoryOfRetailers[medicinesHeld[msg.sender].medicines[medicineId][i].user].medicines[medicineId].quantity = 0;
-                inventoryOfDistributors[msg.sender].medicines[medicineId].quantity = 0;
-            }
-        }
-    }
+    // #endregion Open Functions
 }

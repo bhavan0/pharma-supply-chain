@@ -76,24 +76,6 @@ class Pharma(Resource):
 
         return userRole, 200
 
-    @app.route('/add-owner', methods=['POST'])
-    def addOwner():
-        userRequest = request.get_json()
-        address = userRequest['address']
-
-        pharmaDB = get_database('pharma')
-        collection_subscriptions = pharmaDB['users']
-
-        user = {
-            'name': 'owner',
-            'role': 99,
-            'address': address
-        }
-
-        collection_subscriptions.insert_one(user)
-
-        return {'Success': 'Owner Added'}, 200
-
     # endregion Owner
 
     # region Distributor
@@ -262,7 +244,7 @@ class Pharma(Resource):
             "$set": {"medicines": medicines}})
 
         return {'Success': 'Medicine Updated'}, 200
-        
+
     # endregion Distributor
 
     # region Retailer
@@ -435,8 +417,34 @@ class Pharma(Resource):
 
     # endregion Customer
 
+    def addOwner():
+        pharmaDB = get_database('pharma')
+        collection_subscriptions = pharmaDB['users']
+
+        retailerData = collection_subscriptions.find_one(
+            {"name": "owner"})
+
+        if retailerData is None:
+
+            with open("config.json", "r") as read_file:
+                developer = json.load(read_file)
+
+                owner = developer.get('owner')
+
+                pharmaDB = get_database('pharma')
+                collection_subscriptions = pharmaDB['users']
+
+                user = {
+                    'name': 'owner',
+                    'role': 99,
+                    'address': owner
+                }
+
+                collection_subscriptions.insert_one(user)
+
 
 api.add_resource(Pharma, '/')
 
 if __name__ == '__main__':
+    Pharma.addOwner()
     app.run(host='0.0.0.0', port=5001)

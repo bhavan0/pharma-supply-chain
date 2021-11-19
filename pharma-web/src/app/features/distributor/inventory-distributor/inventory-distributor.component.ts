@@ -63,8 +63,11 @@ export class InventoryDistributorComponent implements OnInit {
         data: { medicine, isRetailer: false }
       });
 
-      this.inventoryViewRef.onClose.subscribe(() => {
+      this.inventoryViewRef.onClose.subscribe((value: boolean) => {
         this.selectedMedicine = null;
+        if (value) {
+          this.getAllMedicines();
+        }
       });
     }
   }

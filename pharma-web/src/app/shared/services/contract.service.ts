@@ -135,4 +135,13 @@ export class ContractService {
         });
     }
 
+    async getAllMedicineHolders(medicineId: number): Promise<any> {
+        this.getAccount();
+        return new Promise(async (resolve) => {
+            const res = await this.pharmaContract
+                .methods.getAllMedicineHolders(medicineId).call({ from: this.account });
+            resolve(res);
+        });
+    }
+
 }

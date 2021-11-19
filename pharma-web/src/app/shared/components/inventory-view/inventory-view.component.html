@@ -39,12 +39,19 @@
             </div>
         </div>
     </div>
+
+    <div *ngIf="medicineUsersLoaded">
+        <h3 class="first">Users</h3>
+        <p-listbox [options]="medicineUsers" optionLabel="user"></p-listbox>
+    </div>
+
 </div>
 
 <div class="ui-dynamic-dialog-footer">
     <div class="text-right">
+        <button pButton *ngIf="!isRetailer" label="Track Inventory" class="m-r-12" (click)="trackInventory()"></button>
         <button pButton *ngIf="!isRetailer" label="Recall" class="m-r-12" (click)="recallInventory()"></button>
-        <button pButton [disabled]="disableSave()" label="Save" class="m-r-12" (click)="editInventory()"></button>
+        <button pButton [disabled]="!disableSave()" label="Save" class="m-r-12" (click)="editInventory()"></button>
         <button pButton label="Cancel" class="ui-button-tertiary" (click)="closeDialogBox()"></button>
     </div>
 </div>

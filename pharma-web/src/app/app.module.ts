@@ -26,6 +26,7 @@ import { MyOrdersComponent } from './features/customer/my-orders/my-orders.compo
 import { CreateOrderComponent } from './features/customer/create-order/create-order.component';
 import { AllInventoryComponent } from './features/retailer/all-inventory/all-inventory.component';
 import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
+import { ListboxModule } from 'primeng/listbox';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { DashboardComponent } from './shared/components/dashboard/dashboard.comp
     HttpClientModule,
     DropdownModule,
     InputNumberModule,
-    CardModule
+    CardModule,
+    ListboxModule
   ],
   providers: [],
   bootstrap: [AppComponent],
