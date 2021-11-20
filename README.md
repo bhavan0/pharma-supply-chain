@@ -75,6 +75,22 @@ Components of the Design:
 * Distributor will have access to see all the users who have any particular medicine. This can be helpful for tracking in case any medicine is to be recalled or see if anyone has got any side effects due to its usage.
 * Distributors will also be allowed to recall the medicines, this removes the availability of the medicine from all sources (Distributor/Retailer) thus not allowing anyone else be able to place the order with it. Also the amount is transffered back to the respective users from the distributors balance. NOTE: If the retailer has increased the price of the medicine. The distributor will be paying that amount to the retailer instead of the previous price.
 
+<br />
+
+### Contract Diagram
+
+   > ![Contract Diagram image](./images-for-readme/contract-diagram.png)
+
+<br />
+
+### Latest Deployed address of smart contract
+> 0xb3A8395305b703186A7d4E3f90d6DC01c4F9De55
+
+* Deployed Smart contract in remix
+   > ![Deployed Smart contract in remix image](./images-for-readme/deployed-smart-contract-in-remix.png)
+
+<br />
+
 ### Steps followed through UI
 
 * User DashBoard
@@ -120,12 +136,6 @@ Components of the Design:
 - pharma-contract: truffle
 
 <br />
-
-### Latest Deployed address of smart contract
-> 0xe7EF2d5F0bde917bf2DAd1a3dFa1cF8CB00AFc50
-
-* Deployed Smart contract in remix
-   > ![Deployed Smart contract in remix image](./images-for-readme/deployed-smart-contract-in-remix.png)
 
 ### Steps To run application
 

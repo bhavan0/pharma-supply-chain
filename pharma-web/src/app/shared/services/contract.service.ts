@@ -36,20 +36,20 @@ export class ContractService {
         });
     }
 
-    async addInventoryByDistibuter(medicineId: number, quantity: number, price: number): Promise<any> {
+    async addInventoryByDistibutor(medicineId: number, quantity: number, price: number): Promise<any> {
         this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.addInventoryByDistibuter(medicineId, quantity, price * 10000).send({ from: this.account });
+                .methods.addInventoryByDistibutor(medicineId, quantity, price * 10000).send({ from: this.account });
             resolve(res);
         });
     }
 
-    async updateInventoryByDistibuter(medicineId: number, quantity: number, price: number): Promise<any> {
+    async updateInventoryByDistibutor(medicineId: number, quantity: number, price: number): Promise<any> {
         this.getAccount();
         return new Promise(async (resolve) => {
             const res = await this.pharmaContract
-                .methods.updateInventoryByDistibuter(medicineId, quantity, price * 10000).send({ from: this.account });
+                .methods.updateInventoryByDistibutor(medicineId, quantity, price * 10000).send({ from: this.account });
             resolve(res);
         });
     }

@@ -30,7 +30,7 @@ export class AddDistributorInventoryComponent implements OnInit {
   }
 
   async addInventory() {
-    await this.contractService.addInventoryByDistibuter(this.medicine.id, this.medicine.quantity, this.medicine.price);
+    await this.contractService.addInventoryByDistibutor(this.medicine.id, this.medicine.quantity, this.medicine.price);
     const medicine: MedicineBase = {
       id: this.medicine.id,
       name: this.medicine.name,

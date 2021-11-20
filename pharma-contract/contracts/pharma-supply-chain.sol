@@ -27,7 +27,7 @@ contract PharmaContract is ERC20 {
         mapping(address => bool) members;
     }
     
-    struct DistributorMedicines {
+    struct DistributorMedicine {
         uint quantity;
         uint price;
     }
@@ -62,7 +62,7 @@ contract PharmaContract is ERC20 {
     }
     
     struct DistributorListOfMedicine {
-        mapping(uint => DistributorMedicines) medicines;
+        mapping(uint => DistributorMedicine) medicines;
     }
     
     struct RetailerListOfMedicine {
@@ -110,11 +110,6 @@ contract PharmaContract is ERC20 {
         _;
     }
     
-    modifier onlyOwnerOrDistributor {
-        require(msg.sender == owner || roles[UserType.Distributor].members[msg.sender], 'Only Owner or Distributor can call this function');
-        _;
-    }
-    
     // #endregion Modifiers
     
     constructor () ERC20(_ERCname, _ERCsymbol, _ERCtotalSupply * 10000, _ERCdecimal)
@@ -141,18 +136,18 @@ contract PharmaContract is ERC20 {
     
     // Returns the list of all users who had the medicine with them.
     // Can be used for tracking, in case someone has used any of the medicines
-    function getAllMedicineHolders(uint medicineId) onlyOwnerOrDistributor public virtual returns (MedicinesHeld[] memory){
+    function getAllMedicineHolders(uint medicineId) onlyDistributor public virtual returns (MedicinesHeld[] memory){
         return medicinesHeld[msg.sender].medicines[medicineId];
     }
     
     // Distributors add inventory
-    function addInventoryByDistibuter(uint medicineId, uint quantity, uint price) onlyDistributor public virtual {
+    function addInventoryByDistibutor(uint medicineId, uint quantity, uint price) onlyDistributor public virtual {
         inventoryOfDistributors[msg.sender].medicines[medicineId].quantity = quantity;
         inventoryOfDistributors[msg.sender].medicines[medicineId].price = price;
     }
     
     // Distributors update inventory
-    function updateInventoryByDistibuter(uint medicineId, uint quantity, uint price) onlyDistributor public virtual {
+    function updateInventoryByDistibutor(uint medicineId, uint quantity, uint price) onlyDistributor public virtual {
         inventoryOfDistributors[msg.sender].medicines[medicineId].quantity = quantity;
         inventoryOfDistributors[msg.sender].medicines[medicineId].price = price;
     }

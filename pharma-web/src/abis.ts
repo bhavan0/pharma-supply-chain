@@ -1,4 +1,4 @@
-export const eventAddress = '0xe7EF2d5F0bde917bf2DAd1a3dFa1cF8CB00AFc50';
+export const eventAddress = '0xb3A8395305b703186A7d4E3f90d6DC01c4F9De55';
 
 export const eventAbi = [
   {
@@ -324,7 +324,7 @@ export const eventAbi = [
         'type': 'uint256'
       }
     ],
-    'name': 'addInventoryByDistibuter',
+    'name': 'addInventoryByDistibutor',
     'outputs': [],
     'stateMutability': 'nonpayable',
     'type': 'function'
@@ -347,7 +347,7 @@ export const eventAbi = [
         'type': 'uint256'
       }
     ],
-    'name': 'updateInventoryByDistibuter',
+    'name': 'updateInventoryByDistibutor',
     'outputs': [],
     'stateMutability': 'nonpayable',
     'type': 'function'

@@ -71,7 +71,7 @@ export class InventoryViewComponent implements OnInit {
       }
     } else {
       if (this.oldPrice !== this.medicine.price || this.oldQuantity !== this.medicine.quantity) {
-        await this.contractService.updateInventoryByDistibuter(this.medicine.id, this.medicine.quantity, this.medicine.price);
+        await this.contractService.updateInventoryByDistibutor(this.medicine.id, this.medicine.quantity, this.medicine.price);
       }
       if (this.oldName !== this.medicine.name) {
         const medicine: MedicineBase = {
