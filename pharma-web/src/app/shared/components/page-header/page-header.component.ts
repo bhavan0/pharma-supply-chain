@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountService } from 'src/app/shared/services/account.service';
 
 @Component({
@@ -10,12 +11,18 @@ export class PageHeaderComponent implements OnInit {
 
   userName = '';
 
-  constructor(private accountService: AccountService) {
+  constructor(
+    private accountService: AccountService,
+    private router: Router) {
 
   }
 
   ngOnInit(): void {
     this.userName = this.accountService.account;
+  }
+
+  redirectToHomePage() {
+    this.router.navigateByUrl('/dashboard');
   }
 
 }

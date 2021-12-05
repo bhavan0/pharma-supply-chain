@@ -84,7 +84,7 @@ Components of the Design:
 <br />
 
 ### Latest Deployed address of smart contract
-> 0xb3A8395305b703186A7d4E3f90d6DC01c4F9De55
+> 0x744Fc7094EA080593Bbb6D865A4e7bD591C46556
 
 * Deployed Smart contract in remix
    > ![Deployed Smart contract in remix image](./images-for-readme/deployed-smart-contract-in-remix.png)
@@ -125,6 +125,9 @@ Components of the Design:
 
 * Distributor Recalled Medicines
    > ![Distributor Recalled Medicines image](./images-for-readme/recalled-medicine-ui.png)
+
+* Toaster Message Shown after contract function executed
+   > ![Toaster Message image](./images-for-readme/toaster-confirmation-ui.png)
 
 <br />
 
