@@ -1,4 +1,4 @@
-export const eventAddress = '0xb3A8395305b703186A7d4E3f90d6DC01c4F9De55';
+export const eventAddress = '0x674379B1D7d0a7B57E884d6120755874e217dcB4';
 
 export const eventAbi = [
   {

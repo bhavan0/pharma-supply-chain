@@ -29,7 +29,8 @@ export class UserDetailsComponent implements OnInit {
   }
 
   async getBalanceOfUser() {
-    this.balance = await this.contractService.getBalanceOfUser(this.user.address);
+    const blockBalance = await this.contractService.getBalanceOfUser(this.user.address);
+    this.balance = +blockBalance / 10000;
   }
 
   closeDialogBox() {
