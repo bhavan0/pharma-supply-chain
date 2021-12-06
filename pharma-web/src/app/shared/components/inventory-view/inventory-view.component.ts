@@ -58,7 +58,7 @@ export class InventoryViewComponent implements OnInit {
 
   disableSave() {
     return this.isRetailer
-      ? +this.medicine.quantity === 0 && !(this.oldPrice !== this.medicine.price)
+      ? !(+this.medicine.quantity === 0 || !(this.oldPrice !== this.medicine.price))
       : this.medicine.recalled && !(this.oldName !== this.medicine.name || this.oldPrice !== this.medicine.price
         || this.oldQuantity !== this.medicine.quantity);
   }
