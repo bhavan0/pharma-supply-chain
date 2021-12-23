@@ -136,8 +136,7 @@ Components of the Design:
 
 * Add your secret key (12 word nmemonic) by creating a .secret file, in the pharma-contract folder
 * run the following commands to deploy the smart contract
-    > truffle compile
-    <br />
+    > truffle compile    
     > truffle migrate --network ropsten
 * Take the latest contract address from the build/PharmaContract file and add it in pharma-web/src/abi.ts file
 * Add the owner address in the file pharma-backend/config.json (the first address of your accounts is considered as owner while deploying it)
@@ -146,6 +145,6 @@ Components of the Design:
     > python3 pharma-backend.py
 * To run the web application, run the following commands.
     > npm i
-    <br />
+    
     > npm start
 * You will be able to access the dapp on http://localhost:4200
